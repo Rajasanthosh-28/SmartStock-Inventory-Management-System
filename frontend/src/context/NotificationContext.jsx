@@ -19,6 +19,9 @@ export const NotificationProvider = ({ children }) => {
   const [latestNotification, setLatestNotification] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
 
+  // Real-time dashboard update version
+  const [dashboardUpdateVersion, setDashboardUpdateVersion] = useState(0);
+
   useEffect(() => {
 
     let socketClient = null;
@@ -32,34 +35,55 @@ export const NotificationProvider = ({ children }) => {
           setUnreadCount(Number(data.count) || 0);
         }
       } catch (error) {
-        console.error("Failed to load unread notification count:", error);
+        console.error(
+          "Failed to load unread notification count:",
+          error
+        );
       }
     };
 
     // Load existing unread count
     loadUnreadCount();
 
-    // Connect to real-time notification server
+    // Connect to existing notification WebSocket
     socketClient = connectNotificationSocket({
 
+      // Receive new notifications
       onNotification: (notification) => {
         if (!mounted) return;
 
         setLatestNotification(notification);
       },
 
+      // Receive unread notification count
       onUnreadCount: (data) => {
         if (!mounted) return;
 
         setUnreadCount(Number(data.count) || 0);
       },
 
+      // Receive dashboard update events
+      onDashboardUpdate: (event) => {
+        if (!mounted) return;
+
+        console.log(
+          "Real-time dashboard update received:",
+          event
+        );
+
+        setDashboardUpdateVersion(
+          previousVersion => previousVersion + 1
+        );
+      },
+
+      // WebSocket connected
       onConnected: () => {
         if (mounted) {
           setIsConnected(true);
         }
       },
 
+      // WebSocket error
       onError: (error) => {
         console.error(error);
 
@@ -70,7 +94,9 @@ export const NotificationProvider = ({ children }) => {
     });
 
     return () => {
+
       mounted = false;
+
       setIsConnected(false);
 
       if (socketClient) {
@@ -86,7 +112,8 @@ export const NotificationProvider = ({ children }) => {
         unreadCount,
         setUnreadCount,
         latestNotification,
-        isConnected
+        isConnected,
+        dashboardUpdateVersion
       }}
     >
       {children}

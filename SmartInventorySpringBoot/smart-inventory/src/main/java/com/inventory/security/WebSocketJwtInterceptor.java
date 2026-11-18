@@ -47,7 +47,7 @@ public class WebSocketJwtInterceptor implements ChannelInterceptor {
             return message;
         }
 
-        // Step 1: Authenticate WebSocket connection
+        // 1. Authenticate WebSocket connection
         if (StompCommand.CONNECT.equals(accessor.getCommand())) {
 
             String authorization =
@@ -85,7 +85,7 @@ public class WebSocketJwtInterceptor implements ChannelInterceptor {
                     !user.getRole().equals(tokenRole)) {
 
                 throw new MessageDeliveryException(
-                        "Only Admin users can access notifications"
+                        "Only Admin users can access WebSocket topics"
                 );
             }
 
@@ -101,16 +101,16 @@ public class WebSocketJwtInterceptor implements ChannelInterceptor {
             accessor.setUser(authentication);
         }
 
-        // Step 2: Authorize notification subscriptions
+        // 2. Authorize subscriptions
         if (StompCommand.SUBSCRIBE.equals(accessor.getCommand())) {
 
             if (!(accessor.getUser() instanceof Authentication authentication)
-                    || !authentication.getAuthorities().stream()
-                    .anyMatch(authority ->
+                    || authentication.getAuthorities().stream()
+                    .noneMatch(authority ->
                             "ROLE_ADMIN".equals(authority.getAuthority()))) {
 
                 throw new MessageDeliveryException(
-                        "Unauthorized notification subscription"
+                        "Unauthorized WebSocket subscription"
                 );
             }
 
@@ -118,7 +118,8 @@ public class WebSocketJwtInterceptor implements ChannelInterceptor {
 
             boolean allowedDestination =
                     "/topic/notifications".equals(destination)
-                    || "/topic/notifications/unread-count".equals(destination);
+                    || "/topic/notifications/unread-count".equals(destination)
+                    || "/topic/dashboard".equals(destination);
 
             if (!allowedDestination) {
                 throw new MessageDeliveryException(
@@ -127,7 +128,7 @@ public class WebSocketJwtInterceptor implements ChannelInterceptor {
             }
         }
 
-        // Step 3: Client does not need to send messages
+        // 3. Prevent client-side message sending
         if (StompCommand.SEND.equals(accessor.getCommand())) {
 
             throw new MessageDeliveryException(

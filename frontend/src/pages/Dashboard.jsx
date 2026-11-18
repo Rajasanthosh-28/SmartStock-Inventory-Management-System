@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "../context/TranslationContext";
+import { useNotifications } from "../context/NotificationContext";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -107,6 +108,9 @@ function Dashboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  // Real-time dashboard update version
+  const { dashboardUpdateVersion } = useNotifications();
+
   const today = new Date();
   const currentYear = today.getFullYear();
 
@@ -164,8 +168,14 @@ function Dashboard() {
   const [chartLoading, setChartLoading] = useState(false);
   const [chartError, setChartError] = useState("");
 
-  // Fetch dashboard summary
+  // ========================================
+  // FETCH DASHBOARD SUMMARY
+  // Refreshes automatically after transactions
+  // ========================================
+
   useEffect(() => {
+
+    let active = true;
 
     const fetchDashboardData = async () => {
 
@@ -179,6 +189,8 @@ function Dashboard() {
           getLowStockCount(),
           getSuppliers()
         ]);
+
+        if (!active) return;
 
         const summary =
           results[0].status === "fulfilled"
@@ -228,21 +240,36 @@ function Dashboard() {
       } catch (err) {
 
         console.error("Dashboard error:", err);
-        setErrorKey("dashboardLoadError");
+
+        if (active) {
+          setErrorKey("dashboardLoadError");
+        }
 
       } finally {
 
-        setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
 
       }
     };
 
     fetchDashboardData();
 
-  }, []);
+    return () => {
+      active = false;
+    };
 
-  // Fetch actual graph data whenever filters change
+  }, [dashboardUpdateVersion]);
+
+  // ========================================
+  // FETCH ACTUAL GRAPH DATA
+  // Refreshes when filters or WebSocket events change
+  // ========================================
+
   useEffect(() => {
+
+    let active = true;
 
     const fetchChartData = async () => {
 
@@ -264,7 +291,9 @@ function Dashboard() {
 
           if (startDate > endDate) {
             setChartData([]);
-            setChartError("Start date cannot be after end date.");
+            setChartError(
+              "Start date cannot be after end date."
+            );
             return;
           }
 
@@ -285,7 +314,9 @@ function Dashboard() {
 
           if (Number(startYear) > Number(endYear)) {
             setChartData([]);
-            setChartError("Start year cannot be greater than end year.");
+            setChartError(
+              "Start year cannot be greater than end year."
+            );
             return;
           }
 
@@ -299,6 +330,8 @@ function Dashboard() {
 
         const response = await getSalesPurchaseChart(filters);
 
+        if (!active) return;
+
         setChartData(
           Array.isArray(response) ? response : []
         );
@@ -307,19 +340,27 @@ function Dashboard() {
 
         console.error("Graph data error:", err);
 
-        setChartData([]);
-        setChartError(
-          "Unable to load graph data. Please check the backend."
-        );
+        if (active) {
+          setChartData([]);
+          setChartError(
+            "Unable to load graph data. Please check the backend."
+          );
+        }
 
       } finally {
 
-        setChartLoading(false);
+        if (active) {
+          setChartLoading(false);
+        }
 
       }
     };
 
     fetchChartData();
+
+    return () => {
+      active = false;
+    };
 
   }, [
     period,
@@ -327,7 +368,8 @@ function Dashboard() {
     endDate,
     selectedYear,
     startYear,
-    endYear
+    endYear,
+    dashboardUpdateVersion
   ]);
 
   const summaryCards = createSummaryCards(

@@ -42,6 +42,7 @@ export const markAllNotificationsRead = async () => {
 export const connectNotificationSocket = ({
     onNotification,
     onUnreadCount,
+    onDashboardUpdate,
     onConnected,
     onError
 }) => {
@@ -71,7 +72,7 @@ export const connectNotificationSocket = ({
 
             console.log("Notification WebSocket connected.");
 
-            // Subscribe to notifications
+            // 1. Subscribe to notifications
             client.subscribe("/topic/notifications", (message) => {
 
                 try {
@@ -84,7 +85,7 @@ export const connectNotificationSocket = ({
 
             });
 
-            // Subscribe to unread count
+            // 2. Subscribe to unread count
             client.subscribe(
                 "/topic/notifications/unread-count",
                 (message) => {
@@ -99,6 +100,22 @@ export const connectNotificationSocket = ({
 
                 }
             );
+
+            // 3. Subscribe to real-time dashboard updates
+            client.subscribe("/topic/dashboard", (message) => {
+
+                try {
+                    const event = JSON.parse(message.body);
+
+                    console.log("Dashboard WebSocket event:", event);
+
+                    onDashboardUpdate?.(event);
+
+                } catch (error) {
+                    console.error("Dashboard event parsing error:", error);
+                }
+
+            });
 
             onConnected?.();
         },

@@ -17,16 +17,18 @@ public class SalesService {
     private final SalesRepository salesRepository;
     private final ProductRepository productRepository;
     private final NotificationService notificationService;
-
+    private final DashboardUpdateService dashboardUpdateService;
     public SalesService(
-            SalesRepository salesRepository,
-            ProductRepository productRepository,
-            NotificationService notificationService) {
+        SalesRepository salesRepository,
+        ProductRepository productRepository,
+        NotificationService notificationService,
+        DashboardUpdateService dashboardUpdateService) {
 
-        this.salesRepository = salesRepository;
-        this.productRepository = productRepository;
-        this.notificationService = notificationService;
-    }
+    this.salesRepository = salesRepository;
+    this.productRepository = productRepository;
+    this.notificationService = notificationService;
+    this.dashboardUpdateService = dashboardUpdateService;
+}
 
     // Check low stock
     private boolean isLowStock(Product product) {
@@ -95,7 +97,11 @@ public class SalesService {
 
         sale.setProductName(product.getProductName());
 
-        return salesRepository.save(sale);
+        Sale savedSale = salesRepository.save(sale);
+
+dashboardUpdateService.publishUpdateAfterCommit("SALE_ADDED");
+
+return savedSale;
     }
 
     // 2. Get All Sales
@@ -187,7 +193,11 @@ public class SalesService {
         existingSale.setTotalAmount(updatedSale.getTotalAmount());
         existingSale.setSaleDate(updatedSale.getSaleDate());
 
-        return salesRepository.save(existingSale);
+        Sale savedSale = salesRepository.save(existingSale);
+
+dashboardUpdateService.publishUpdateAfterCommit("SALE_UPDATED");
+
+return savedSale;
     }
 
     // 5. Delete Sale
@@ -209,5 +219,6 @@ public class SalesService {
         productRepository.save(product);
 
         salesRepository.delete(sale);
+        dashboardUpdateService.publishUpdateAfterCommit("SALE_DELETED");
     }
 }

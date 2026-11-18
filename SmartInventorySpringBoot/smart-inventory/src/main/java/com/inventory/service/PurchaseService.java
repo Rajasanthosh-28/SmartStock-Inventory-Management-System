@@ -16,15 +16,18 @@ public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final ProductRepository productRepository;
     private final NotificationService notificationService;
+    private final DashboardUpdateService dashboardUpdateService;
 
     public PurchaseService(
             PurchaseRepository purchaseRepository,
             ProductRepository productRepository,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            DashboardUpdateService dashboardUpdateService) {
 
         this.purchaseRepository = purchaseRepository;
         this.productRepository = productRepository;
         this.notificationService = notificationService;
+        this.dashboardUpdateService = dashboardUpdateService;
     }
 
     // Check low-stock status
@@ -100,7 +103,12 @@ public class PurchaseService {
         // Save purchase record
         purchase.setProductName(product.getProductName());
 
-        return purchaseRepository.save(purchase);
+        Purchase savedPurchase = purchaseRepository.save(purchase);
+
+        dashboardUpdateService.publishUpdateAfterCommit(
+                "PURCHASE_ADDED");
+
+        return savedPurchase;
     }
 
     // 2. Get All Purchases
@@ -166,7 +174,6 @@ public class PurchaseService {
 
             productRepository.save(oldProduct);
 
-            // Check whether stock crossed below minimum
             checkLowStockTransition(oldProduct, oldProductWasLow);
 
         } else {
@@ -184,7 +191,6 @@ public class PurchaseService {
 
             productRepository.save(oldProduct);
 
-            // Check old product after stock reduction
             checkLowStockTransition(oldProduct, oldProductWasLow);
 
             // Add purchased quantity to new product
@@ -208,7 +214,13 @@ public class PurchaseService {
         existingPurchase.setPurchaseDate(
                 updatedPurchase.getPurchaseDate());
 
-        return purchaseRepository.save(existingPurchase);
+        Purchase savedPurchase =
+                purchaseRepository.save(existingPurchase);
+
+        dashboardUpdateService.publishUpdateAfterCommit(
+                "PURCHASE_UPDATED");
+
+        return savedPurchase;
     }
 
     // 5. Delete Purchase
@@ -244,5 +256,8 @@ public class PurchaseService {
 
         // Delete purchase record
         purchaseRepository.delete(purchase);
+
+        dashboardUpdateService.publishUpdateAfterCommit(
+                "PURCHASE_DELETED");
     }
 }
