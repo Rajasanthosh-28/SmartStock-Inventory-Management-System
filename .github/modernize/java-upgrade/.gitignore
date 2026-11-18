@@ -1,0 +1,23 @@
+# Java / Spring Boot
+**/target/
+*.class
+*.log
+
+# React / Node
+**/node_modules/
+**/dist/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

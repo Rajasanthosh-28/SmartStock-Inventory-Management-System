@@ -1,0 +1,184 @@
+/* MAIN APPLICATION LAYOUT */
+
+.app-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.page-content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  background: #f8fafc;
+  overflow-x: hidden;
+}
+
+/* DARK MODE */
+
+.app-layout.dark-mode {
+  background: #0b1120;
+  color: #e2e8f0;
+}
+
+.dark-mode .sidebar {
+  background: #111827;
+  border-color: #263247;
+}
+
+.dark-mode .sidebar-logo h2 {
+  color: #f8fafc;
+}
+
+.dark-mode .sidebar-logo span,
+.dark-mode .menu-heading {
+  color: #94a3b8;
+}
+
+.dark-mode .menu-item {
+  color: #a8b5c9;
+}
+
+.dark-mode .menu-item:hover {
+  background: #1e293b;
+  color: #60a5fa;
+}
+
+.dark-mode .menu-item.active {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.dark-mode .sidebar-bottom {
+  border-color: #263247;
+}
+
+.dark-mode .profile-info strong {
+  color: #f1f5f9;
+}
+
+/* DARK TOPBAR */
+
+.dark-mode .topbar {
+  background: #111827;
+  border-color: #263247;
+}
+
+.dark-mode .topbar-left h1 {
+  color: #f8fafc;
+}
+
+.dark-mode .topbar-left p,
+.dark-mode .topbar-date {
+  color: #94a3b8;
+}
+
+.dark-mode .topbar-search {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.dark-mode .topbar-search input {
+  color: #f8fafc;
+}
+
+.dark-mode .topbar-search span {
+  background: #334155;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+.dark-mode .notification-button,
+.dark-mode .theme-toggle {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.dark-mode .topbar-user strong {
+  color: #f8fafc;
+}
+
+/* DARK DASHBOARD */
+
+.dark-mode .page-content {
+  background: #0b1120;
+}
+
+.dark-mode .summary-card,
+.dark-mode .chart-card,
+.dark-mode .activity-card {
+  background: #111827;
+  border-color: #263247;
+}
+
+.dark-mode .dashboard-heading h2,
+.dark-mode .dashboard-welcome h2,
+.dark-mode .card-value,
+.dark-mode .section-header h3 {
+  color: #f8fafc;
+}
+
+.dark-mode .summary-card h3,
+.dark-mode .section-header p,
+.dark-mode .card-description {
+  color: #94a3b8;
+}
+
+.dark-mode .activity-item {
+  border-color: #263247;
+}
+
+.dark-mode .activity-details strong {
+  color: #e2e8f0;
+}
+
+.dark-mode .dashboard-welcome {
+  background: linear-gradient(
+    120deg,
+    #172554,
+    #1e1b4b,
+    #312e81
+  );
+  border-color: #3730a3;
+}
+
+.dark-mode .dashboard-welcome p {
+  color: #cbd5e1;
+}
+
+/* SMOOTH TRANSITIONS */
+
+.app-layout,
+.app-layout * {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    width: 100%;
+    min-height: auto;
+  }
+}
