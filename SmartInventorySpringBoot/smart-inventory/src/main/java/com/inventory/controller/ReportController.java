@@ -5,7 +5,8 @@ import com.inventory.model.DashboardSummary;
 import com.inventory.model.Product;
 
 import org.springframework.web.bind.annotation.*;
-
+import com.inventory.model.SalesPurchaseChartDTO;
+import java.time.LocalDate;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -80,4 +81,34 @@ public class ReportController {
 
        return reportService.getLowStockCount();
      }
+     // Sales and Purchases Graph with Date, Month and Year Filters
+@GetMapping("/sales-purchases-chart")
+public List<SalesPurchaseChartDTO> getSalesPurchaseChart(
+
+        @RequestParam String period,
+
+        @RequestParam(required = false)
+        LocalDate startDate,
+
+        @RequestParam(required = false)
+        LocalDate endDate,
+
+        @RequestParam(required = false)
+        Integer year,
+
+        @RequestParam(required = false)
+        Integer startYear,
+
+        @RequestParam(required = false)
+        Integer endYear) {
+
+    return reportService.getSalesPurchaseChart(
+            period,
+            startDate,
+            endDate,
+            year,
+            startYear,
+            endYear
+    );
+}
 }
