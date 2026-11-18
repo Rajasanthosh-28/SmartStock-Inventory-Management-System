@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig {
@@ -24,12 +25,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+            HttpSecurity http,
+            CorsConfigurationSource corsConfigurationSource) throws Exception {
 
         http
             .csrf(AbstractHttpConfigurer::disable)
 
-            .cors(cors -> {})
+            .cors(cors ->
+                cors.configurationSource(corsConfigurationSource)
+            )
 
             .sessionManagement(session ->
                 session.sessionCreationPolicy(
@@ -37,12 +41,23 @@ public class SecurityConfig {
                 )
             )
 
-          .authorizeHttpRequests(auth -> auth
-    .requestMatchers("/api/auth/**").permitAll()
-    .requestMatchers("/api/translations/**").permitAll()
-    .requestMatchers("/api/**").hasRole("ADMIN")
-    .anyRequest().permitAll()
-)
+            .authorizeHttpRequests(auth -> auth
+
+                // Allow CORS preflight requests
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // Public authentication endpoints
+                .requestMatchers("/api/auth/**").permitAll()
+
+                // Public translation endpoints
+                .requestMatchers("/api/translations/**").permitAll()
+
+                // Admin-protected API endpoints
+                .requestMatchers("/api/**").hasRole("ADMIN")
+
+                .anyRequest().permitAll()
+            )
+
             .addFilterBefore(
                 jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class
