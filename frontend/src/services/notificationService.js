@@ -56,8 +56,7 @@ export const connectNotificationSocket = ({
     }
 
     const client = new Client({
-
-        brokerURL: "ws://localhost:8080/ws-notifications",
+brokerURL: "wss://smartstock-backend-r5xq.onrender.com/ws-notifications",
 
         connectHeaders: {
             Authorization: `Bearer ${token}`

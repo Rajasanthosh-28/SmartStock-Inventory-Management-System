@@ -6,8 +6,7 @@ import React, {
 } from "react";
 
 const TranslationContext = createContext(null);
-const API_URL = "http://localhost:8080/api/translations";
-
+const API_URL = "https://smartstock-backend-r5xq.onrender.com/api/translations";
 export function TranslationProvider({ children }) {
   const [language, setLanguage] = useState(() =>
     localStorage.getItem("smartstock-language") || "en"
