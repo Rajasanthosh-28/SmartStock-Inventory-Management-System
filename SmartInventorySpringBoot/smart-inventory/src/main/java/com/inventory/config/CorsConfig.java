@@ -17,9 +17,10 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
-                "https://smartstock-inventory-management-system.onrender.com"
-        ));
+        "http://localhost:5173",
+        "http://localhost:4173",
+        "https://smartstock-inventory-management-system.onrender.com"
+));
 
         configuration.setAllowedMethods(Arrays.asList(
                 "GET",
