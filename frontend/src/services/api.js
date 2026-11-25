@@ -9,14 +9,20 @@ const api = axios.create({
   timeout: 30000
 });
 
-// Automatically attach the admin JWT token
 api.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("adminToken");
+    const isLoginRequest =
+  config.url?.includes("/auth/admin/login");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+if (isLoginRequest) {
+  delete config.headers.Authorization;
+} else {
+  const token = sessionStorage.getItem("adminToken");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+}
 
     return config;
   },

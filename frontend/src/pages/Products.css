@@ -16,7 +16,6 @@
   }
 }
 
-/* Heading */
 
 .products-heading {
   display: flex;
@@ -59,7 +58,6 @@
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
-/* Summary cards */
 
 .products-summary {
   display: grid;
@@ -103,7 +101,6 @@
   font-weight: 750;
 }
 
-/* Table container */
 
 .products-table-card {
   background: white;
@@ -175,7 +172,6 @@
   transform: rotate(35deg);
 }
 
-/* Table */
 
 .products-table-wrapper {
   width: 100%;
@@ -262,7 +258,6 @@
   transform: scale(1.08);
 }
 
-/* Messages */
 
 .products-message {
   padding: 55px 20px;
@@ -279,7 +274,6 @@
   font-size: 13px;
 }
 
-/* Modal */
 
 .product-modal-overlay {
   position: fixed;
@@ -418,7 +412,6 @@
   cursor: not-allowed;
 }
 
-/* Dark mode */
 
 .dark-mode .products-page {
   color: #f1f5f9;
@@ -493,7 +486,6 @@
   color: #f1f5f9;
 }
 
-/* Responsive */
 
 @media (max-width: 900px) {
   .products-summary {

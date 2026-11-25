@@ -1,4 +1,3 @@
-/* MAIN APPLICATION LAYOUT */
 
 .app-layout {
   display: flex;
@@ -26,7 +25,6 @@
   overflow-x: hidden;
 }
 
-/* DARK MODE */
 
 .app-layout.dark-mode {
   background: #0b1120;
@@ -69,7 +67,6 @@
   color: #f1f5f9;
 }
 
-/* DARK TOPBAR */
 
 .dark-mode .topbar {
   background: #111827;
@@ -111,7 +108,6 @@
   color: #f8fafc;
 }
 
-/* DARK DASHBOARD */
 
 .dark-mode .page-content {
   background: #0b1120;
@@ -159,7 +155,6 @@
   color: #cbd5e1;
 }
 
-/* SMOOTH TRANSITIONS */
 
 .app-layout,
 .app-layout * {
@@ -170,7 +165,6 @@
     box-shadow 0.25s ease;
 }
 
-/* RESPONSIVE */
 
 @media (max-width: 768px) {
   .app-layout {

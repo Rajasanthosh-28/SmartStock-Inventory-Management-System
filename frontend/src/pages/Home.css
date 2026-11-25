@@ -511,7 +511,6 @@
   color: #ea580c;
 }
 
-/* CHART */
 
 .home-dashboard-chart {
   margin-top: 15px;
@@ -589,7 +588,6 @@
   font-size: 9px;
 }
 
-/* RECENT ACTIVITY */
 
 .home-dashboard-activity {
   margin-top: 17px;
@@ -643,7 +641,6 @@
   color: #16a34a;
 }
 
-/* FLOATING NOTIFICATION */
 
 .home-floating-card {
   position: absolute;
@@ -722,9 +719,6 @@
   line-height: 1.8;
 }
 
-/* =========================================
-   FEATURES SECTION
-========================================= */
 
 .home-features-section {
   padding: 100px 0;
@@ -1976,7 +1970,6 @@
   animation: heroTextReveal 1s ease-out both;
 }
 
-/* Smarter & Faster animated gradient */
 .hero-gradient-text {
   display: inline-block;
   background: linear-gradient(
@@ -1997,7 +1990,6 @@
     premiumTextFloat 4s ease-in-out infinite;
 }
 
-/* Smooth gradient movement */
 @keyframes premiumGradient {
   0% {
     background-position: 0% center;
@@ -2012,7 +2004,6 @@
   }
 }
 
-/* Very gentle floating movement */
 @keyframes premiumTextFloat {
   0%, 100% {
     transform: translateY(0);
@@ -2023,7 +2014,6 @@
   }
 }
 
-/* Heading entrance */
 @keyframes heroTextReveal {
   from {
     opacity: 0;
@@ -2141,7 +2131,6 @@
   color: #e1e7f0;
 }
 
-/* Mobile */
 @media (max-width: 700px) {
   .hero-info-strip {
     justify-content: center;

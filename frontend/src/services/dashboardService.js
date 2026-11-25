@@ -15,7 +15,6 @@ export const getSuppliers = async () => {
   return response.data;
 };
 
-// Sales and Purchases Graph API
 export const getSalesPurchaseChart = async (filters) => {
   const response = await api.get("/reports/sales-purchases-chart", {
     params: filters

@@ -50,7 +50,6 @@ function Sidebar() {
   return (
     <aside className="sidebar">
 
-      {/* LOGO */}
 
       <div className="sidebar-logo">
 
@@ -65,7 +64,6 @@ function Sidebar() {
 
       </div>
 
-      {/* NAVIGATION */}
 
       <div className="sidebar-menu">
 
@@ -103,7 +101,6 @@ function Sidebar() {
 
       </div>
 
-      {/* BOTTOM MENU */}
 
       <div className="sidebar-bottom">
 
@@ -117,7 +114,6 @@ function Sidebar() {
           <span>{t("settings")}</span>
         </NavLink>
 
-        {/* ADMIN PROFILE */}
 
         <NavLink
           to="/profile"

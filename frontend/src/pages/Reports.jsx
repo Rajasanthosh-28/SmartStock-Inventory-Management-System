@@ -121,7 +121,6 @@ function Reports() {
   return (
     <div className="reports-page">
 
-      {/* Header */}
       <div className="reports-header">
         <div>
           <h1> {t("reportsAnalytics")} </h1>
@@ -138,7 +137,6 @@ function Reports() {
         </button>
       </div>
 
-      {/* Filters */}
       <div className="reports-filter-card">
         <div className="reports-filter-title">
           <CalendarDays size={19} />
@@ -182,7 +180,6 @@ function Reports() {
         </div>
       ) : (
         <>
-          {/* Summary Cards */}
           <div className="reports-summary-grid">
 
             <div className="report-card">
@@ -231,7 +228,6 @@ function Reports() {
 
           </div>
 
-          {/* Monthly Chart */}
           <div className="reports-chart-card">
             <div className="reports-section-heading">
               <div>
@@ -314,7 +310,6 @@ function Reports() {
             </div>
           </div>
 
-          {/* Low Stock */}
           <div className="reports-low-stock-card">
             <div className="reports-section-heading">
               <div>

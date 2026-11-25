@@ -33,7 +33,6 @@ function Profile() {
   return (
     <div className="profile-page">
 
-      {/* HEADER */}
       <div className="profile-header">
         <div>
           <h1>{t("MyProfile")}</h1>
@@ -41,7 +40,6 @@ function Profile() {
         </div>
       </div>
 
-      {/* PERSONAL INFORMATION */}
       <div className="profile-card">
 
         <div className="profile-card-heading">
@@ -79,7 +77,6 @@ function Profile() {
         </div>
       </div>
 
-      {/* LANGUAGE PREFERENCES */}
       <div className="profile-card">
 
         <div className="profile-card-heading">
@@ -127,7 +124,6 @@ function Profile() {
 
       </div>
 
-      {/* ACCOUNT SECURITY */}
       <div className="profile-card profile-security">
 
         <div className="profile-card-heading">

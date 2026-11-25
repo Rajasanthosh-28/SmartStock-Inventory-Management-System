@@ -334,7 +334,6 @@
   font-size: 12px;
 }
 
-/* Modal */
 
 .purchase-modal-overlay {
   position: fixed;
@@ -465,7 +464,6 @@
   background: var(--table-head-bg, #f1f5f9);
 }
 
-/* Dark mode */
 
 .dark-mode .purchase-page-header h1,
 .dark-mode .purchase-summary-card h2,
@@ -515,7 +513,6 @@
   color: #e2e8f0;
 }
 
-/* Responsive */
 
 @media (max-width: 900px) {
   .purchase-summary-grid {
@@ -573,7 +570,6 @@
   box-sizing: border-box;
 }
 
-/* Premium gradient action button */
 
 .purchase-primary-btn {
   background: linear-gradient(110deg, #2563eb, #6366f1);
@@ -588,7 +584,6 @@
   transform: translateY(-2px);
 }
 
-/* Better summary card spacing */
 
 .purchase-summary-grid {
   gap: 26px;
@@ -599,7 +594,6 @@
   border-radius: 17px;
 }
 
-/* Match Sales page dark appearance */
 
 .dark-mode .purchase-summary-card,
 .dark-mode .purchase-table-container,
@@ -616,7 +610,6 @@
   border-color: #263449;
 }
 
-/* Improve table spacing */
 
 .purchase-table-header {
   padding: 25px 28px;
@@ -630,7 +623,6 @@
   padding: 20px 24px;
 }
 
-/* Responsive spacing */
 
 @media (max-width: 768px) {
   .purchases-page {
@@ -652,7 +644,6 @@
   }
 }
 
-/* Match quantity style with Sales table */
 
 .purchase-quantity {
   display: inline;
@@ -664,14 +655,12 @@
   font-size: 13px;
 }
 
-/* Match Purchase ID color with Sales ID */
 
 .purchase-id {
   color: var(--text-primary, #334155);
   font-weight: 600;
 }
 
-/* Dark mode text colors */
 
 .dark-mode .purchase-quantity,
 .dark-mode .purchase-id {

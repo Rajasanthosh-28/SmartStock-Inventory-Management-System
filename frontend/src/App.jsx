@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-
+import OfflineSyncManager from "./components/OfflineSyncManager";
 import Home from "./pages/Home";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/Dashboard";
@@ -23,15 +23,13 @@ function App() {
   return (
     <TranslationProvider>
       <BrowserRouter>
-        <Routes>
+          <OfflineSyncManager />
+            <Routes>
 
-          {/* Public Home Page */}
           <Route path="/" element={<Home />} />
 
-          {/* Admin Login */}
           <Route path="/admin/login" element={<AdminLogin />} />
 
-          {/* Protected Admin Pages */}
           <Route element={<ProtectedAdminRoute />}>
             <Route
               element={

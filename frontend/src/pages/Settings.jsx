@@ -73,7 +73,6 @@ function Settings() {
   return (
     <div className="settings-page">
 
-      {/* Header */}
 
       <div className="settings-header">
         <div>
@@ -82,7 +81,6 @@ function Settings() {
         </div>
       </div>
 
-      {/* General Settings */}
 
       <div className="settings-card">
 
@@ -146,7 +144,6 @@ function Settings() {
 
       </div>
 
-      {/* Inventory Settings */}
 
       <div className="settings-card">
 
@@ -183,7 +180,6 @@ function Settings() {
 
       </div>
 
-      {/* Notification Settings */}
 
       <div className="settings-card">
 
@@ -248,7 +244,6 @@ function Settings() {
 
       </div>
 
-      {/* Actions */}
 
       <div className="settings-actions">
 

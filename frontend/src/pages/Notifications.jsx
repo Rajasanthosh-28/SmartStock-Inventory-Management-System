@@ -38,9 +38,6 @@ function Notifications() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // ======================================
-  // LOAD NOTIFICATIONS FROM BACKEND
-  // ======================================
 
   const loadNotifications = useCallback(async () => {
 
@@ -69,15 +66,11 @@ function Notifications() {
   }, [setUnreadCount, t]);
 
 
-  // Initial loading
   useEffect(() => {
     loadNotifications();
   }, [loadNotifications]);
 
 
-  // ======================================
-  // HANDLE NEW REAL-TIME NOTIFICATIONS
-  // ======================================
 
   useEffect(() => {
 
@@ -100,9 +93,6 @@ function Notifications() {
   }, [latestNotification]);
 
 
-  // ======================================
-  // MARK ONE NOTIFICATION AS READ
-  // ======================================
 
   const markAsRead = async (id) => {
 
@@ -133,9 +123,6 @@ function Notifications() {
   };
 
 
-  // ======================================
-  // MARK ALL NOTIFICATIONS AS READ
-  // ======================================
 
   const markAllAsRead = async () => {
 
@@ -163,9 +150,6 @@ function Notifications() {
   };
 
 
-  // ======================================
-  // FILTER NOTIFICATIONS
-  // ======================================
 
   const filteredNotifications = notifications.filter((item) => {
 
@@ -188,9 +172,6 @@ function Notifications() {
   });
 
 
-  // ======================================
-  // COUNTS
-  // ======================================
 
   const unreadCount = notifications.filter(
     (item) => !item.read
@@ -199,9 +180,6 @@ function Notifications() {
   const readCount = notifications.length - unreadCount;
 
 
-  // ======================================
-  // DATE FORMATTING
-  // ======================================
 
   const formatDate = (date) => {
 
@@ -218,9 +196,6 @@ function Notifications() {
   };
 
 
-  // ======================================
-  // NOTIFICATION ICON
-  // ======================================
 
   const getNotificationIcon = (type) => {
 
@@ -245,15 +220,11 @@ function Notifications() {
   };
 
 
-  // ======================================
-  // PAGE UI
-  // ======================================
 
   return (
 
     <div className="notifications-page">
 
-      {/* Header */}
 
       <div className="notifications-header">
 
@@ -276,7 +247,6 @@ function Notifications() {
       </div>
 
 
-      {/* Summary Cards */}
 
       <div className="notification-summary-grid">
 
@@ -324,11 +294,9 @@ function Notifications() {
       </div>
 
 
-      {/* Notification Content */}
 
       <div className="notifications-content-card">
 
-        {/* Toolbar */}
 
         <div className="notifications-toolbar">
 
@@ -378,7 +346,6 @@ function Notifications() {
         </div>
 
 
-        {/* Error */}
 
         {error && (
           <div className="notification-error">
@@ -387,7 +354,6 @@ function Notifications() {
         )}
 
 
-        {/* Loading */}
 
         {loading ? (
 
@@ -397,7 +363,6 @@ function Notifications() {
 
         ) : filteredNotifications.length > 0 ? (
 
-          /* Notification List */
 
           <div className="notification-list">
 
@@ -468,7 +433,6 @@ function Notifications() {
 
         ) : (
 
-          /* Empty State */
 
           <div className="notification-empty">
 

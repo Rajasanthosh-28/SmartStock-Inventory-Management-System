@@ -19,7 +19,6 @@ export const NotificationProvider = ({ children }) => {
   const [latestNotification, setLatestNotification] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
 
-  // Real-time dashboard update version
   const [dashboardUpdateVersion, setDashboardUpdateVersion] = useState(0);
 
   useEffect(() => {
@@ -27,43 +26,88 @@ export const NotificationProvider = ({ children }) => {
     let socketClient = null;
     let mounted = true;
 
+    let socketTask = Promise.resolve();
+
     const loadUnreadCount = async () => {
+
+      if (!navigator.onLine) return;
+
       try {
         const data = await getUnreadCount();
 
         if (mounted) {
           setUnreadCount(Number(data.count) || 0);
         }
+
       } catch (error) {
-        console.error(
-          "Failed to load unread notification count:",
-          error
-        );
+
+        if (navigator.onLine) {
+          console.error(
+            "Failed to load unread notification count:",
+            error
+          );
+        }
+
       }
     };
 
-    // Load existing unread count
-    loadUnreadCount();
+    const startSocket = () => {
 
-    // Connect to existing notification WebSocket
+      if (!mounted || !navigator.onLine || !socketClient) {
+        return;
+      }
+
+      socketTask = socketTask.then(async () => {
+
+        if (
+          mounted &&
+          navigator.onLine &&
+          socketClient &&
+          !socketClient.active
+        ) {
+          await socketClient.activate();
+        }
+
+      }).catch(error => {
+        if (navigator.onLine) {
+          console.error("Notification connection failed:", error);
+        }
+      });
+
+    };
+
+    const stopSocket = () => {
+
+      setIsConnected(false);
+
+      if (!socketClient) return;
+
+      socketTask = socketTask.then(async () => {
+
+        if (socketClient?.active) {
+          await disconnectNotificationSocket(socketClient);
+        }
+
+      }).catch(error => {
+        console.error("Notification disconnection failed:", error);
+      });
+
+    };
+
     socketClient = connectNotificationSocket({
 
-      // Receive new notifications
       onNotification: (notification) => {
         if (!mounted) return;
-
         setLatestNotification(notification);
       },
 
-      // Receive unread notification count
       onUnreadCount: (data) => {
         if (!mounted) return;
-
         setUnreadCount(Number(data.count) || 0);
       },
 
-      // Receive dashboard update events
       onDashboardUpdate: (event) => {
+
         if (!mounted) return;
 
         console.log(
@@ -74,24 +118,50 @@ export const NotificationProvider = ({ children }) => {
         setDashboardUpdateVersion(
           previousVersion => previousVersion + 1
         );
+
       },
 
-      // WebSocket connected
       onConnected: () => {
         if (mounted) {
           setIsConnected(true);
         }
       },
 
-      // WebSocket error
       onError: (error) => {
-        console.error(error);
 
-        if (mounted) {
-          setIsConnected(false);
-        }
+        if (!mounted) return;
+
+        console.error(error);
+        setIsConnected(false);
+
       }
+
     });
+
+    if (navigator.onLine) {
+      loadUnreadCount();
+      startSocket();
+    }
+
+    const handleOnline = () => {
+
+      console.log("Internet restored. Reconnecting notifications.");
+
+      loadUnreadCount();
+      startSocket();
+
+    };
+
+    const handleOffline = () => {
+
+      console.log("Internet disconnected. Pausing notifications.");
+
+      stopSocket();
+
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
 
@@ -99,9 +169,15 @@ export const NotificationProvider = ({ children }) => {
 
       setIsConnected(false);
 
-      if (socketClient) {
-        disconnectNotificationSocket(socketClient);
-      }
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+
+      socketTask = socketTask.then(async () => {
+        if (socketClient?.active) {
+          await disconnectNotificationSocket(socketClient);
+        }
+      });
+
     };
 
   }, []);
@@ -121,8 +197,6 @@ export const NotificationProvider = ({ children }) => {
   );
 };
 
-
-// Custom hook
 export const useNotifications = () => {
 
   const context = useContext(NotificationContext);

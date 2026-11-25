@@ -29,9 +29,6 @@ import {
 import { useTranslation } from "../context/TranslationContext";
 import "./Home.css";
 
-/* =========================================
-   HOME PAGE CONTENT
-========================================= */
 
 const content = {
   en: {
@@ -437,9 +434,6 @@ const content = {
   },
 };
 
-/* =========================================
-   FEATURE DATA
-========================================= */
 
 const featureItems = [
   {
@@ -468,9 +462,6 @@ const featureItems = [
   },
 ];
 
-/* =========================================
-   WORKFLOW DATA
-========================================= */
 
 const workflowItems = [
   {
@@ -490,9 +481,6 @@ const workflowItems = [
   },
 ];
 
-/* =========================================
-   HOME COMPONENT
-========================================= */
 
 function Home() {
   const navigate = useNavigate();
@@ -511,9 +499,6 @@ function Home() {
   const currentLanguage = content[language] ? language : "en";
   const c = content[currentLanguage];
 
-  /* =========================================
-     THEME MANAGEMENT
-  ========================================= */
 
   useEffect(() => {
     document.documentElement.setAttribute("data-home-theme", theme);
@@ -539,9 +524,6 @@ function Home() {
         ? c.theme.dark
         : c.theme.night;
 
-  /* =========================================
-     NAVIGATION
-  ========================================= */
 
   const handleLogin = () => {
     setMenuOpen(false);
@@ -557,9 +539,6 @@ function Home() {
     setMenuOpen(false);
   };
 
-  /* =========================================
-     LANGUAGE MANAGEMENT
-  ========================================= */
 
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
@@ -567,17 +546,12 @@ function Home() {
     changeLanguage(selectedLanguage);
   };
 
-  /* =========================================
-     RENDER
-  ========================================= */
 
   return (
     <div className={`home-page home-theme-${theme}`}>
 
-      {/* =====================================
-          NAVBAR
-      ===================================== */}
-
+          
+{/* ===================================== */}
       <header className="home-header">
         <nav className="home-navbar">
 
@@ -634,7 +608,6 @@ function Home() {
 
           <div className="home-nav-actions">
 
-            {/* LANGUAGE SELECTOR */}
 
             <select
               className="home-language-select"
@@ -647,7 +620,6 @@ function Home() {
               <option value="hi">हिन्दी</option>
             </select>
 
-            {/* THEME BUTTON */}
 
             <button
               type="button"
@@ -678,7 +650,6 @@ function Home() {
 
           </div>
 
-          {/* MOBILE MENU BUTTON */}
 
           <button
             type="button"
@@ -694,10 +665,7 @@ function Home() {
 
       <main>
 
-        {/* =====================================
-            HERO SECTION
-        ===================================== */}
-
+{/* ===================================== */}
         <section className="home-hero" id="home">
 
           <div className="home-hero-background">
@@ -766,7 +734,6 @@ function Home() {
 
             </div>
 
-            {/* DASHBOARD PREVIEW */}
 
             <div className="home-hero-visual">
 
@@ -805,7 +772,6 @@ function Home() {
 
                 </div>
 
-                {/* DASHBOARD STATISTICS */}
 
                 <div className="home-stat-grid">
 
@@ -870,7 +836,6 @@ function Home() {
 
                 </div>
 
-                {/* DASHBOARD CHART */}
 
                 <div className="home-dashboard-chart">
 
@@ -960,7 +925,6 @@ function Home() {
 
                 </div>
 
-                {/* RECENT ACTIVITY */}
 
                 <div className="home-dashboard-activity">
 
@@ -1009,7 +973,6 @@ function Home() {
 
               </div>
 
-              {/* FLOATING NOTIFICATION */}
 
               <div className="home-floating-card">
                 <span className="home-floating-icon">
@@ -1030,10 +993,7 @@ function Home() {
 
         </section>
 
-        {/* =====================================
-            FEATURES SECTION
-        ===================================== */}
-
+{/* ===================================== */}
         <section className="home-features-section" id="features">
 
           <div className="home-container">
@@ -1083,10 +1043,7 @@ function Home() {
 
         </section>
 
-        {/* =====================================
-            WORKFLOW SECTION
-        ===================================== */}
-
+{/* ===================================== */}
         <section className="home-workflow-section" id="workflow">
 
           <div className="home-container">
@@ -1136,10 +1093,7 @@ function Home() {
 
         </section>
 
-        {/* =====================================
-            ABOUT / BENEFITS SECTION
-        ===================================== */}
-
+{/* ===================================== */}
         <section className="home-benefits-section" id="about">
 
           <div className="home-container home-benefits-container">
@@ -1225,10 +1179,8 @@ function Home() {
 
         </section>
 
-        {/* =====================================
-            CALL TO ACTION
-        ===================================== */}
-
+            
+{/* ===================================== */}
         <section className="home-cta-section">
 
           <div className="home-container">
@@ -1268,10 +1220,8 @@ function Home() {
 
       </main>
 
-      {/* =====================================
-          FOOTER
-      ===================================== */}
-
+          
+{/* ===================================== */}
       <footer className="home-footer">
 
         <div className="home-container">

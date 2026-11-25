@@ -63,7 +63,6 @@ function Topbar({ darkMode, toggleTheme }) {
 
       <div className="topbar-right">
 
-        {/* Search */}
         <div className="topbar-search">
           <Search size={18} />
 
@@ -75,13 +74,11 @@ function Topbar({ darkMode, toggleTheme }) {
           <span>Ctrl K</span>
         </div>
 
-        {/* Date */}
         <div className="topbar-date">
           <CalendarDays size={17} />
           <span>{today}</span>
         </div>
 
-        {/* Theme Toggle */}
         <button
           className="theme-toggle"
           onClick={toggleTheme}
@@ -92,7 +89,6 @@ function Topbar({ darkMode, toggleTheme }) {
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
 
-        {/* Live Notification Button */}
         <button
           className="notification-button"
           onClick={openNotifications}
@@ -110,7 +106,6 @@ function Topbar({ darkMode, toggleTheme }) {
 
         </button>
 
-        {/* Admin Profile */}
         <button
           className="topbar-profile"
           aria-label={t("adminUser")}

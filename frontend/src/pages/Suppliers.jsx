@@ -42,7 +42,6 @@ function Suppliers() {
 
   const [formData, setFormData] = useState(emptyForm);
 
-  // Load suppliers
   const loadSuppliers = async () => {
     try {
       setLoading(true);
@@ -62,7 +61,6 @@ function Suppliers() {
     loadSuppliers();
   }, []);
 
-  // Handle form input
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -72,14 +70,12 @@ function Suppliers() {
     }));
   };
 
-  // Open add modal
   const handleAdd = () => {
     setEditingSupplier(null);
     setFormData(emptyForm);
     setShowModal(true);
   };
 
-  // Open edit modal
   const handleEdit = (supplier) => {
     setEditingSupplier(supplier);
 
@@ -94,7 +90,6 @@ function Suppliers() {
     setShowModal(true);
   };
 
-  // Save supplier
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,7 +125,6 @@ function Suppliers() {
     }
   };
 
-  // Delete supplier
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
       t("confirmDeleteSupplier")
@@ -152,7 +146,6 @@ function Suppliers() {
     }
   };
 
-  // Search suppliers
   const filteredSuppliers = suppliers.filter((supplier) => {
     const search = searchTerm.toLowerCase();
 
@@ -168,7 +161,6 @@ function Suppliers() {
   return (
     <div className="suppliers-page">
 
-      {/* Page Header */}
       <div className="suppliers-header">
         <div>
           <h1> {t("suppliers")} </h1>
@@ -181,7 +173,6 @@ function Suppliers() {
         </button>
       </div>
 
-      {/* Summary Card */}
       <div className="supplier-summary-grid">
         <div className="supplier-summary-card">
           <div className="supplier-summary-icon">
@@ -196,7 +187,6 @@ function Suppliers() {
         </div>
       </div>
 
-      {/* Supplier Table Section */}
       <div className="supplier-table-container">
 
         <div className="supplier-table-header">
@@ -332,7 +322,6 @@ function Suppliers() {
         </div>
       </div>
 
-      {/* Add / Edit Modal */}
       {showModal && (
         <div className="supplier-modal-overlay">
           <div className="supplier-modal">

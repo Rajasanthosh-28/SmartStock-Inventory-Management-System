@@ -35,7 +35,6 @@ import {
 
 import "./Dashboard.css";
 
-// Summary Cards
 const createSummaryCards = (data, t) => [
   {
     title: t("totalProducts"),
@@ -81,7 +80,6 @@ const createSummaryCards = (data, t) => [
   }
 ];
 
-// Recent Activities
 const recentActivities = [
   {
     title: "inventoryDashboardCreated",
@@ -108,7 +106,6 @@ function Dashboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Real-time dashboard update version
   const { dashboardUpdateVersion } = useNotifications();
 
   const today = new Date();
@@ -140,7 +137,6 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [errorKey, setErrorKey] = useState("");
 
-  // Graph filter states
   const [period, setPeriod] = useState("MONTH");
 
   const [startDate, setStartDate] = useState(
@@ -163,15 +159,10 @@ function Dashboard() {
     currentYear
   );
 
-  // Graph data states
   const [chartData, setChartData] = useState([]);
   const [chartLoading, setChartLoading] = useState(false);
   const [chartError, setChartError] = useState("");
 
-  // ========================================
-  // FETCH DASHBOARD SUMMARY
-  // Refreshes automatically after transactions
-  // ========================================
 
   useEffect(() => {
 
@@ -262,10 +253,6 @@ function Dashboard() {
 
   }, [dashboardUpdateVersion]);
 
-  // ========================================
-  // FETCH ACTUAL GRAPH DATA
-  // Refreshes when filters or WebSocket events change
-  // ========================================
 
   useEffect(() => {
 
@@ -377,7 +364,6 @@ function Dashboard() {
     t
   );
 
-  // Format graph labels
   const formatChartLabel = (label) => {
 
     if (period === "MONTH") {
@@ -411,14 +397,12 @@ function Dashboard() {
 
     <div className="dashboard">
 
-      {/* Error Message */}
       {errorKey && (
         <div className="dashboard-error">
           {t(errorKey)}
         </div>
       )}
 
-      {/* Dashboard Heading */}
       <div className="dashboard-heading">
 
         <div>
@@ -437,7 +421,6 @@ function Dashboard() {
 
       </div>
 
-      {/* Summary Cards */}
       <div className="summary-grid">
 
         {summaryCards.map((card) => {
@@ -483,10 +466,8 @@ function Dashboard() {
 
       </div>
 
-      {/* Charts Section */}
       <div className="charts-grid">
 
-        {/* Sales and Purchases Chart */}
         <div className="chart-card">
 
           <div className="section-header">
@@ -506,7 +487,6 @@ function Dashboard() {
 
           </div>
 
-          {/* Graph Filters */}
           <div className="chart-filters">
 
             <div className="chart-filter-group">
@@ -536,7 +516,6 @@ function Dashboard() {
 
             </div>
 
-            {/* Date Filter */}
             {period === "DATE" && (
 
               <div className="chart-date-filters">
@@ -579,7 +558,6 @@ function Dashboard() {
 
             )}
 
-            {/* Month Filter */}
             {period === "MONTH" && (
 
               <div className="chart-filter-group">
@@ -616,7 +594,6 @@ function Dashboard() {
 
             )}
 
-            {/* Year Filter */}
             {period === "YEAR" && (
 
               <div className="chart-year-filters">
@@ -665,7 +642,6 @@ function Dashboard() {
 
           </div>
 
-          {/* Graph */}
           <div className="chart-container">
 
             {chartLoading ? (
@@ -812,7 +788,6 @@ function Dashboard() {
 
         </div>
 
-        {/* Recent Activity */}
         <div className="activity-card">
 
           <div className="section-header">
@@ -873,7 +848,6 @@ function Dashboard() {
 
       </div>
 
-      {/* Welcome Section */}
       <div className="dashboard-welcome">
 
         <div>
@@ -894,7 +868,6 @@ function Dashboard() {
 
       </div>
 
-      {/* Data Information */}
       <p className="demo-notice">
         {t("summaryBackendData")}
         {" "}
